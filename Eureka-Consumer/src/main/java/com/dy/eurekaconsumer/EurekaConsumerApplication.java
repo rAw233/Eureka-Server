@@ -1,5 +1,6 @@
 package com.dy.eurekaconsumer;
 
+import com.dy.LoggingClientRequestIntercepter;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
 import com.netflix.loadbalancer.RoundRobinRule;
@@ -20,7 +21,9 @@ public class EurekaConsumerApplication {
     @Bean
     @LoadBalanced
     public RestTemplate getRT(){
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getInterceptors().add(new LoggingClientRequestIntercepter());
+        return restTemplate;
     }
 
     @Bean
